@@ -29,4 +29,21 @@ public class ProductService {
         productRepository.deleteById(id);
         return "Product Deleted Successfully";
     }
+
+    public Product updateProduct(Long id, Product updateProduct){
+
+        Product existingProduct = productRepository.findById(id).orElse(null);
+
+        if(existingProduct != null) {
+            existingProduct.setName(updateProduct.getName());
+            existingProduct.setQuantity(updateProduct.getQuantity());
+            existingProduct.setPrice(updateProduct.getPrice());
+
+
+            Product savedProduct = productRepository.save(existingProduct);
+            System.out.println(savedProduct);
+            return savedProduct;
+        }
+        return null;
+    }
 }
