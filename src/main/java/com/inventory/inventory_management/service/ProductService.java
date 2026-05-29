@@ -1,36 +1,31 @@
-package com.inventory.inventory_management.controller;
+package com.inventory.inventory_management.service;
 
 import com.inventory.inventory_management.Repository.ProductRepository;
 import com.inventory.inventory_management.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/products")
-public class ProductController {
+@Service
+public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @PostMapping
-    public Product saveProduct(@RequestBody Product product){
+    public Product saveProduct(Product product){
         return productRepository.save(product);
     }
 
-    @GetMapping
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProducts(Product product){
         return productRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Product getProductByID(@PathVariable Long id){
+    public Product getProductById(Long id){
         return productRepository.findById(id).orElse(null);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable Long id){
+    public String deleteProduct(Long id){
         productRepository.deleteById(id);
         return "Product Deleted Successfully";
     }
