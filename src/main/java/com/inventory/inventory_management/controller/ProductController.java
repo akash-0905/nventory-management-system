@@ -1,7 +1,7 @@
 package com.inventory.inventory_management.controller;
 
-import com.inventory.inventory_management.Repository.ProductRepository;
 import com.inventory.inventory_management.entity.Product;
+import com.inventory.inventory_management.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +12,25 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
 
     @PostMapping
     public Product saveProduct(@RequestBody Product product){
-        return productRepository.save(product);
+        return productService.saveProduct(product);
     }
 
     @GetMapping
-    public List<Product> getAllProduct(){
-        return productRepository.findAll();
+    public List<Product> getAllProducts(){
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
     public Product getProductByID(@PathVariable Long id){
-        return productRepository.findById(id).orElse(null);
+        return productService.getProductById(id);
     }
 
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable Long id){
-        productRepository.deleteById(id);
-        return "Product Deleted Successfully";
+        return productService.deleteProduct(id);
     }
 }
