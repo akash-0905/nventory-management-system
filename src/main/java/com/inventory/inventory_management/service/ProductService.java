@@ -2,6 +2,7 @@ package com.inventory.inventory_management.service;
 
 import com.inventory.inventory_management.Repository.ProductRepository;
 import com.inventory.inventory_management.entity.Product;
+import com.inventory.inventory_management.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id){
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not Found" + id));
     }
 
     public String deleteProduct(Long id){
