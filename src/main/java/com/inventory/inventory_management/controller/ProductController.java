@@ -2,6 +2,7 @@ package com.inventory.inventory_management.controller;
 
 import com.inventory.inventory_management.entity.Product;
 import com.inventory.inventory_management.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public Product saveProduct(@RequestBody Product product){
+    public Product saveProduct(@Valid @RequestBody Product product){
         return productService.saveProduct(product);
     }
 
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product updateProduct){
+    public Product updateProduct(@PathVariable Long id, @Valid @RequestBody Product updateProduct){
         return productService.updateProduct(id, updateProduct);
     }
 }

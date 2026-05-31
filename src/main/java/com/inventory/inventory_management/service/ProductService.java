@@ -23,7 +23,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id){
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not Found" + id));
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Id" + id + "Product not Found"));
     }
 
     public String deleteProduct(Long id){
