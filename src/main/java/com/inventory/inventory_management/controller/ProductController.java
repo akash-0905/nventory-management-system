@@ -33,8 +33,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductByID(@PathVariable Long id){
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProductByID(@PathVariable Long id){
+
+        Product getById = productService.getProductById(id);
+        return ResponseEntity.ok(getById);
     }
 
     @DeleteMapping("/{id}")
