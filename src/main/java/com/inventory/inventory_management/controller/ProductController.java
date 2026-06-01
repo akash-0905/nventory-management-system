@@ -40,8 +40,10 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable Long id){
-        return productService.deleteProduct(id);
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
+
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
