@@ -9,18 +9,18 @@ public class ProductRequestDTO {
     private String name;
 
     @Positive(message = "Quantity shouldn't be less than 0")
-    private int Quantity;
+    private int quantity;
 
-    @Positive(message = "Price shouldn't be ess than 0")
-    private int Price;
+    @Positive(message = "Price shouldn't be less than 0")
+    private int price;
 
     public String getName(){
         return name;
     }
     public int getQuantity(){
-        return Quantity;
+        return quantity;
     }
     public int getPrice(){
-        return Price;
+        return price;
     }
 }
