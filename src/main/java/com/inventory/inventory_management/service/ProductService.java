@@ -1,9 +1,12 @@
 package com.inventory.inventory_management.service;
 
 import com.inventory.inventory_management.Repository.ProductRepository;
+import com.inventory.inventory_management.dto.ProductRequestDTO;
+import com.inventory.inventory_management.dto.ProductResponseDTO;
 import com.inventory.inventory_management.entity.Product;
 import com.inventory.inventory_management.exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +17,22 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Product saveProduct(Product product){
-        return productRepository.save(product);
+    public ProductResponseDTO saveProduct(ProductRequestDTO dto){
+
+        Product product = new Product();
+
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setQuantity(dto.getQuantity());
+
+        Product savedProduct = productRepository.save(product);
+
+        ProductResponseDTO responseDTO = new ProductResponseDTO();
+        responseDTO.setId(savedProduct.getId());
+        responseDTO.setName(savedProduct.getName());
+        responseDTO.setPrice(savedProduct.getPrice());
+
+        return responseDTO;
     }
 
     public List<Product> getAllProducts(){

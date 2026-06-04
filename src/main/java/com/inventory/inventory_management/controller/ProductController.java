@@ -1,5 +1,7 @@
 package com.inventory.inventory_management.controller;
 
+import com.inventory.inventory_management.dto.ProductRequestDTO;
+import com.inventory.inventory_management.dto.ProductResponseDTO;
 import com.inventory.inventory_management.entity.Product;
 import com.inventory.inventory_management.service.ProductService;
 import jakarta.validation.Valid;
@@ -19,9 +21,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@Valid @RequestBody Product product){
+    public ResponseEntity<ProductResponseDTO> saveProduct(@Valid @RequestBody ProductRequestDTO productRequestDTO){
 
-        Product savedProduct = productService.saveProduct(product);
+        ProductResponseDTO savedProduct = productService.saveProduct(productRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
