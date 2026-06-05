@@ -71,7 +71,7 @@ public class ProductService {
 
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto){
 
-        Product existingProduct = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product not Found with id :" + id);
+        Product existingProduct = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product not Found with id :" + id));
 
         existingProduct.setName(dto.getName());
         existingProduct.setQuantity(dto.getQuantity());
