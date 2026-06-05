@@ -69,20 +69,21 @@ public class ProductService {
         return "Product Deleted Successfully";
     }
 
-    public Product updateProduct(Long id, Product updateProduct){
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto){
 
-        Product existingProduct = productRepository.findById(id).orElse(null);
+        Product existingProduct = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product not Found with id :" + id);
 
-        if(existingProduct != null) {
-            existingProduct.setName(updateProduct.getName());
-            existingProduct.setQuantity(updateProduct.getQuantity());
-            existingProduct.setPrice(updateProduct.getPrice());
+        existingProduct.setName(dto.getName());
+        existingProduct.setQuantity(dto.getQuantity());
+        existingProduct.setPrice(dto.getPrice());
 
+        Product updatedProduct = productRepository.save(existingProduct);
 
-            Product savedProduct = productRepository.save(existingProduct);
-            System.out.println(savedProduct);
-            return savedProduct;
-        }
-        return null;
+        ProductResponseDTO responseDTO = new ProductResponseDTO();
+        responseDTO.setId(updatedProduct.getId());
+        responseDTO.setName(updatedProduct.getName());
+        responseDTO.setPrice(updatedProduct.getPrice());
+
+        return responseDTO;
     }
 }
