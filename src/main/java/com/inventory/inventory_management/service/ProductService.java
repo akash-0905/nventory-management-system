@@ -52,8 +52,16 @@ public class ProductService {
         return responseList;
     }
 
-    public Product getProductById(Long id){
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Id" + id + "Product not Found"));
+    public ProductResponseDTO getProductById(Long id){
+
+        ProductResponseDTO dto = new ProductResponseDTO();
+        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Id" + id + "Product not Found"));
+
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+
+        return dto;
     }
 
     public String deleteProduct(Long id){
