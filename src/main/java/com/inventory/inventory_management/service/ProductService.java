@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,8 +36,20 @@ public class ProductService {
         return responseDTO;
     }
 
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public List<ProductResponseDTO> getAllProducts(){
+
+        List<Product> products = productRepository.findAll();
+
+            List<ProductResponseDTO> responseList = new ArrayList<>();
+        for(Product product : products) {
+            ProductResponseDTO dto = new ProductResponseDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setPrice(product.getPrice());
+
+            responseList.add(dto);
+        }
+        return responseList;
     }
 
     public Product getProductById(Long id){
