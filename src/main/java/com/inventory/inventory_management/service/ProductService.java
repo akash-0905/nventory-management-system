@@ -5,6 +5,8 @@ import com.inventory.inventory_management.dto.ProductRequestDTO;
 import com.inventory.inventory_management.dto.ProductResponseDTO;
 import com.inventory.inventory_management.entity.Product;
 import com.inventory.inventory_management.exception.ProductNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,13 @@ import java.util.List;
 @Service
 public class ProductService {
 
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
     @Autowired
     private ProductRepository productRepository;
 
     public ProductResponseDTO saveProduct(ProductRequestDTO dto){
+
+        log.info("Saving product with name: {}", dto.getName());
 
         Product product = new Product();
 
