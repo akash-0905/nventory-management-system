@@ -32,6 +32,7 @@ public class ProductService {
         product.setQuantity(dto.getQuantity());
 
         Product savedProduct = productRepository.save(product);
+        log.info("Product saved successfully with id: {}", savedProduct.getId());
 
         ProductResponseDTO responseDTO = new ProductResponseDTO();
         responseDTO.setId(savedProduct.getId());
