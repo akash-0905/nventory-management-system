@@ -89,13 +89,19 @@ public class ProductService {
 
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO dto){
 
-        Product existingProduct = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product not Found with id :" + id));
+        log.info("Update Product By ID: {}", id);
+        Product existingProduct = productRepository.findById(id).orElseThrow(()-> {
+                    log.error("Existing Product id is not Found: {}", id);
+                    return new ProductNotFoundException("Product not Found");
+                });
 
+        log.info("Product found. Updating details for id: {}", id);
         existingProduct.setName(dto.getName());
         existingProduct.setQuantity(dto.getQuantity());
         existingProduct.setPrice(dto.getPrice());
 
         Product updatedProduct = productRepository.save(existingProduct);
+        log.info("Product updated successfully with id: {}", id);
 
         ProductResponseDTO responseDTO = new ProductResponseDTO();
         responseDTO.setId(updatedProduct.getId());
