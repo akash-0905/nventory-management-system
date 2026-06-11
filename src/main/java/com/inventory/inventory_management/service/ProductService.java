@@ -44,8 +44,16 @@ public class ProductService {
 
     public List<ProductResponseDTO> getAllProducts(){
 
+        log.info("Fetching all Products");
         List<Product> products = productRepository.findAll();
 
+        if(products.isEmpty()){
+
+            log.warn("No products found in database");
+
+            throw new ProductNotFoundException("No Products Available");
+        }
+        log.info("Total Product fetched: {}", products.size());
             List<ProductResponseDTO> responseList = new ArrayList<>();
         for(Product product : products) {
             ProductResponseDTO dto = new ProductResponseDTO();
