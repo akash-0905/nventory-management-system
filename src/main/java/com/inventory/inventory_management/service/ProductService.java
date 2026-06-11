@@ -83,7 +83,15 @@ public class ProductService {
     }
 
     public String deleteProduct(Long id){
-        productRepository.deleteById(id);
+
+        log.info("Deleting product with id: {}", id);
+        Product product = productRepository.findById(id).orElseThrow(() -> {
+                    log.error("Product not found with id: {}", id);
+
+                    return new ProductNotFoundException("Product not found");
+                });
+        productRepository.delete(product);
+        log.info("Product deleted successfully with id: {}", id);
         return "Product Deleted Successfully";
     }
 
