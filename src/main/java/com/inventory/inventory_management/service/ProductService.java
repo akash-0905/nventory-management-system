@@ -48,9 +48,7 @@ public class ProductService {
         List<Product> products = productRepository.findAll();
 
         if(products.isEmpty()){
-
             log.warn("No products found in database");
-
             throw new ProductNotFoundException("No Products Available");
         }
         log.info("Total Product fetched: {}", products.size());
@@ -68,8 +66,14 @@ public class ProductService {
 
     public ProductResponseDTO getProductById(Long id){
 
+        log.info("Fetching Product by id: {}", id);
+        Product product = productRepository.findById(id).orElseThrow(() -> {
+                    log.error("Product not found with id: {}", id);
+                          return new ProductNotFoundException("Product not found");
+                }
+        );
+        log.info("Product Found by id: {}", id);
         ProductResponseDTO dto = new ProductResponseDTO();
-        Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Id" + id + "Product not Found"));
 
         dto.setId(product.getId());
         dto.setName(product.getName());
